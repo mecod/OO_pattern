@@ -20,7 +20,8 @@ namespace WindowsFormsApplication1
         private void button1_Click(object sender, EventArgs e)
         {
             Cat cat = new Cat("小花");
-            MessageBox.Show(cat.Shout("hoho"));
+            cat.ShoutNum = 5;
+            MessageBox.Show(cat.Shout());
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -35,6 +36,23 @@ namespace WindowsFormsApplication1
 class Cat
 {
     private string name = "";
+    // 字段是存储类要满足其设计所需要的数据，字段是与类相关的变量
+    private int shoutNum = 3;
+    // 属性是一个方法或一对方法（get，set），但在调用它的代码看来，它是一个字段，即属性适合于以字段的方法使用方法调用的场合
+    public int ShoutNum
+    {
+        get
+        {
+            return shoutNum;
+        }
+        set
+        {
+            if (value <= 10)
+                shoutNum = value;
+            else
+                shoutNum = 10;
+        }
+    }
 
     // 构造方法，又叫构造函数，其实就是对类进行初始化。构造方法与类同名，无返回值，也不需要void，在new时候调用。
     public Cat(string name)
@@ -51,7 +69,13 @@ class Cat
 
     public string Shout()
     {
-        return "我的名字叫"+ name + ", 喵";
+        string result = "";
+        
+        for (int i = 0; i < shoutNum; i++)
+        {
+            result += "喵 ";
+        }
+        return "我的名字叫"+ name + " " + result;
     }
     // 普通方法重载
     public string Shout(string shout)
