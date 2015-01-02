@@ -35,9 +35,34 @@ namespace WindowsFormsApplication1
             dog.ShoutNum = 8;
             MessageBox.Show(dog.Shout());
         }
+
+        private Animal[] arrayAnimal;
+
+        // 动物报名 的按钮事件
+        private void button3_Click(object sender, EventArgs e)
+        {
+            arrayAnimal = new Animal[5];
+            arrayAnimal[0] = new Cat("小花");
+            arrayAnimal[1] = new Dog("阿毛");
+            arrayAnimal[2] = new Dog("小黑");
+            arrayAnimal[3] = new Cat("娇娇");
+            arrayAnimal[4] = new Cat("咪咪");
+        }
+        
+        // 叫声比赛 的按钮事件
+        private void button4_Click(object sender, EventArgs e)
+        {
+            foreach (Animal item in arrayAnimal)
+            {
+                MessageBox.Show(item.Shout());
+            }
+        }
     }
 }
 
+
+// 多态表示不同的对象可以执行相同的动作，但要它们自己的实现代码来执行。
+// 用到虚方法和方法重写，或方法覆写。Override。
 class Animal
 {
     // protected表示继承时子类可以对父类有完全访问权
@@ -64,7 +89,43 @@ class Animal
             shoutNum = value;
         }
     }
+
+    public virtual string Shout()
+    {
+        return "";
+    }
 }
+
+// 未用多态实现的Animal类
+/*
+class Animal
+{
+    // protected表示继承时子类可以对父类有完全访问权
+    // 用protected修饰的类成员，对子类公开，但不对其他类公开。
+    protected string name = "";
+    public Animal(string name)
+    {
+        this.name = name;
+    }
+    public Animal()
+    {
+        this.name = "无名";
+    }
+
+    protected int shoutNum = 3;
+    public int ShoutNum
+    {
+        get
+        {
+            return shoutNum;
+        }
+        set
+        {
+            shoutNum = value;
+        }
+    }
+}
+*/
 
 // 继承定义了类如何相互关联，共享特性。继承的工作方式是，定义父类和子类，或叫基类和派生类，
 // 其中子类继承父类的所有特性。子类不但继承了父类的所有特性，还可以定义新的特性。
@@ -76,7 +137,7 @@ class Cat : Animal
     public Cat(string name) : base (name)
     { }
 
-    public string Shout()
+    public override string Shout()
     {
         string result = "";
         for (int i = 0; i < shoutNum; i++)
@@ -98,7 +159,7 @@ class Dog : Animal
         : base(name)
     { }
 
-    public string Shout()
+    public override string Shout()
     {
         string result = "";
         for (int i = 0; i < shoutNum; i++)
@@ -109,6 +170,8 @@ class Dog : Animal
         return "我的名字叫" + name + " " + result;
     }
 }
+
+
 
 /*
 // 类与实例
