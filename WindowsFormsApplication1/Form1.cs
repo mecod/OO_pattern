@@ -38,6 +38,79 @@ namespace WindowsFormsApplication1
     }
 }
 
+class Animal
+{
+    // protected表示继承时子类可以对父类有完全访问权
+    // 用protected修饰的类成员，对子类公开，但不对其他类公开。
+    protected string name = "";
+    public Animal (string name)
+    {
+        this.name = name;
+    }
+    public Animal ()
+    {
+        this.name = "无名";
+    }
+
+    protected int shoutNum = 3;
+    public int ShoutNum
+    {
+        get
+        {
+            return shoutNum;
+        }
+        set
+        {
+            shoutNum = value;
+        }
+    }
+}
+
+// 继承定义了类如何相互关联，共享特性。继承的工作方式是，定义父类和子类，或叫基类和派生类，
+// 其中子类继承父类的所有特性。子类不但继承了父类的所有特性，还可以定义新的特性。
+class Cat : Animal
+{
+    public Cat() : base()
+    { }
+
+    public Cat(string name) : base (name)
+    { }
+
+    public string Shout()
+    {
+        string result = "";
+        for (int i = 0; i < shoutNum; i++)
+        {
+            result += "喵, ";
+        }
+
+        return "我的名字叫" + name + " " + result;
+    }
+}
+
+class Dog : Animal
+{
+    public Dog()
+        : base()
+    { }
+
+    public Dog(string name)
+        : base(name)
+    { }
+
+    public string Shout()
+    {
+        string result = "";
+        for (int i = 0; i < shoutNum; i++)
+        {
+            result += "汪, ";
+        }
+
+        return "我的名字叫" + name + " " + result;
+    }
+}
+
+/*
 // 类与实例
 // 类就是具有相同的属性和功能的对象的抽象的集合
 class Cat
@@ -142,3 +215,4 @@ class Dog
         return "我的名字叫" + name + shout;
     }
 }
+*/
