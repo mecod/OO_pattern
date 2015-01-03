@@ -57,6 +57,19 @@ namespace WindowsFormsApplication1
                 MessageBox.Show(item.Shout());
             }
         }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            MachineCat mcat = new MachineCat("叮当");
+            StoneMonkey wukong = new StoneMonkey("孙悟空");
+
+            IChange[] array = new IChange[2];
+            array[0] = mcat;
+            array[1] = wukong;
+
+            MessageBox.Show(array[0].ChangeThing("各种各样的东西！"));
+            MessageBox.Show(array[1].ChangeThing("各种各样的东西！"));
+        }
     }
 }
 
@@ -110,10 +123,7 @@ abstract class Animal
     /* 抽象类通常代表一个抽象概念，它提供一个继承的出发点，当设计一个新的抽象类时，一定是用来继承的，所以，在一个
      * 以继承关系形成的等级结构里面，树叶节点应当是具体类，而树枝节点均应当是抽象类。
      */
-    protected abstract string getShoutSound()
-    {
-        return "";
-    }
+    protected abstract string getShoutSound();
 }
 
 // 未用多态实现的Animal类
@@ -210,6 +220,21 @@ class Sheep : Animal
     }
 }
 
+class Monkey : Animal
+{
+    public Monkey()
+        : base()
+    { }
+
+    public Monkey(string name)
+        : base(name)
+    { }
+
+    protected override string getShoutSound()
+    {
+        return "吱";
+    }
+}
 /*
 // 类与实例
 // 类就是具有相同的属性和功能的对象的抽象的集合
@@ -316,3 +341,55 @@ class Dog
     }
 }
 */
+
+/* 接口把隐式公共方法和属性组合起来，以封装特定功能的一个集合。
+ * 一旦类实现了接口，类就可以支持接口所指定的所有属性和成员。
+ * 声明接口在语法上与声明抽象类完全相同，但不允许提供接口中任何成员的执行方式。
+ * 所以接口不能实例化，不能有构造方法和字段；不能有修饰符，比如public，private等；
+ * 不能声明虚拟的或静态的等。
+ * 实现接口的类就必须要实现接口中所有的方法和属性
+ * 一个类可以支持多个接口，多个类也可以支持相同的接口。
+ * 接口的命名，前面要加一个大写字母‘I’，这是规范
+*/
+/* 声明一个IChange接口
+ */ 
+interface IChange
+{
+    string ChangeThing(string thing);
+}
+
+/* 机器猫继承于猫，并实现IChange接口，注意Cat与IChange是用“，”分隔
+ */ 
+class MachineCat:Cat, IChange
+{
+    public MachineCat() : base()
+    {
+
+    }
+    public MachineCat(string name) : base (name)
+    { }
+
+    public string ChangeThing(string thing)
+    {
+        return base.Shout() + "我有万能的口袋，我可以变出：" + thing;
+    }
+}
+
+/* 孙悟空
+ */
+class StoneMonkey : Monkey, IChange
+{
+    public StoneMonkey()
+        : base()
+    {
+
+    }
+    public StoneMonkey(string name)
+        : base(name)
+    { }
+
+    public string ChangeThing(string thing)
+    {
+        return base.Shout() + "我有万能的口袋，我可以变出：" + thing;
+    }
+}
