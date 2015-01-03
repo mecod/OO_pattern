@@ -63,7 +63,8 @@ namespace WindowsFormsApplication1
 
 // 多态表示不同的对象可以执行相同的动作，但要它们自己的实现代码来执行。
 // 用到虚方法和方法重写，或方法覆写。Override。
-class Animal
+// C#允许把类和方法声明为abstract，即抽象类和抽象方法
+abstract class Animal
 {
     // protected表示继承时子类可以对父类有完全访问权
     // 用protected修饰的类成员，对子类公开，但不对其他类公开。
@@ -106,7 +107,10 @@ class Animal
 
     /* “得到叫声”，虚方法，让子类重写，只需要给继承的子类使用，所以用protected修饰符
      */
-    protected virtual string getShoutSound()
+    /* 抽象类通常代表一个抽象概念，它提供一个继承的出发点，当设计一个新的抽象类时，一定是用来继承的，所以，在一个
+     * 以继承关系形成的等级结构里面，树叶节点应当是具体类，而树枝节点均应当是抽象类。
+     */
+    protected abstract string getShoutSound()
     {
         return "";
     }
