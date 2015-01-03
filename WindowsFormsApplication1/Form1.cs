@@ -44,8 +44,8 @@ namespace WindowsFormsApplication1
             arrayAnimal = new Animal[5];
             arrayAnimal[0] = new Cat("小花");
             arrayAnimal[1] = new Dog("阿毛");
-            arrayAnimal[2] = new Dog("小黑");
-            arrayAnimal[3] = new Cat("娇娇");
+            arrayAnimal[2] = new Cattle("小黑");
+            arrayAnimal[3] = new Sheep("娇娇");
             arrayAnimal[4] = new Cat("咪咪");
         }
         
@@ -89,8 +89,24 @@ class Animal
             shoutNum = value;
         }
     }
-
+    /* 原来是个虚方法，但是每个实现重复代码很多，都放在这个方法中
     public virtual string Shout()
+    {
+        return "";
+    }
+    */
+    public string Shout()
+    {
+        string result = "";
+        for (int i = 0; i < shoutNum; i++)
+            result += getShoutSound() + ", ";
+
+        return "我的名字叫" + name + " " + result;
+    }
+
+    /* “得到叫声”，虚方法，让子类重写，只需要给继承的子类使用，所以用protected修饰符
+     */
+    protected virtual string getShoutSound()
     {
         return "";
     }
@@ -137,41 +153,58 @@ class Cat : Animal
     public Cat(string name) : base (name)
     { }
 
-    public override string Shout()
+    protected override string getShoutSound()
     {
-        string result = "";
-        for (int i = 0; i < shoutNum; i++)
-        {
-            result += "喵, ";
-        }
-
-        return "我的名字叫" + name + " " + result;
+        return "喵";
     }
 }
 
+// 狗类实现
 class Dog : Animal
 {
-    public Dog()
+    public Dog() : base()
+    { }
+
+    public Dog(string name) : base(name)
+    { }
+
+    protected override string getShoutSound()
+    {
+        return "汪";
+    }
+}
+
+class Cattle : Animal
+{
+    public Cattle()
         : base()
     { }
 
-    public Dog(string name)
+    public Cattle(string name)
         : base(name)
     { }
 
-    public override string Shout()
+    protected override string getShoutSound()
     {
-        string result = "";
-        for (int i = 0; i < shoutNum; i++)
-        {
-            result += "汪, ";
-        }
-
-        return "我的名字叫" + name + " " + result;
+        return "哞";
     }
 }
 
+class Sheep : Animal
+{
+    public Sheep()
+        : base()
+    { }
 
+    public Sheep(string name)
+        : base(name)
+    { }
+
+    protected override string getShoutSound()
+    {
+        return "咩";
+    }
+}
 
 /*
 // 类与实例
