@@ -8,14 +8,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using System.Collections;
+using System.Collections; // 为了使用 ArrayList
+using System.Collections.Generic; // 增加泛型集合命名空间
 
 namespace WindowsFormsApplication1
 {
 
     public partial class Form1 : Form
     {
-        IList arrayAnimal;
+        /* 关键在这里，声明一个泛型集合变量，用接口IList，注意：
+         * IList<Animal>表示此集合变量只能接受Animal类型，其他不可以。
+         * 也可以直接声明“List <Animal> arrayAnimal;
+         */ 
+        IList<Animal> arrayAnimal;
 
         public Form1()
         {
@@ -53,7 +58,14 @@ namespace WindowsFormsApplication1
             // 拆箱就是指从对象中提取值类型。
             // 相对于简单的赋值而言，装箱和拆箱过程需要进行大量的计算。
             // 对值类型进行装箱时，必须分配并构造一个全新的对象。其次，拆箱所需的强制转换也需要进行大量的计算。
-            arrayAnimal = new ArrayList();
+            /* 泛型
+             * 泛型是具有占位符（类型参数）的类、结构、接口和方法，这些占位符是类、结构、接口和方法所存储或使用的一个或多个类型的占位符。
+             * 泛型集合类可以将类型参数用作它所存储的对象的类型的占位符；
+             * 类型参数作为其字段的类型和其方法的参数类型出现。
+             */ 
+
+            // 实例化List对象，注意：此时也需要指定List<T>的T是Animal
+            arrayAnimal = new List<Animal>();
             arrayAnimal.Add(new Cat("小花"));
             arrayAnimal.Add(new Dog("阿毛"));
             arrayAnimal.Add(new Cattle("小黑"));
