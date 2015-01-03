@@ -8,10 +8,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using System.Collections;
+
 namespace WindowsFormsApplication1
 {
+
     public partial class Form1 : Form
     {
+        IList arrayAnimal;
+
         public Form1()
         {
             InitializeComponent();
@@ -36,17 +41,30 @@ namespace WindowsFormsApplication1
             MessageBox.Show(dog.Shout());
         }
 
-        private Animal[] arrayAnimal;
+  //      private Animal[] arrayAnimal;
 
         // 动物报名 的按钮事件
         private void button3_Click(object sender, EventArgs e)
         {
-            arrayAnimal = new Animal[5];
-            arrayAnimal[0] = new Cat("小花");
-            arrayAnimal[1] = new Dog("阿毛");
-            arrayAnimal[2] = new Cattle("小黑");
-            arrayAnimal[3] = new Sheep("娇娇");
-            arrayAnimal[4] = new Cat("咪咪");
+            // ArrayList是命名空间System.Collections下的一部分，它是使用大小可按需动态增加的数组实现IList接口。
+            // 优点： 它可以根据使用大小按需动态增加，不用受事先设置其大小的限制。可以随意地添加、插入或移除某一范围元素，比数组方便
+            // 缺点：ArrayList不是类型安全的。
+            // 装箱就是把值类型打包到Object引用类型的一个实例中。
+            // 拆箱就是指从对象中提取值类型。
+            // 相对于简单的赋值而言，装箱和拆箱过程需要进行大量的计算。
+            // 对值类型进行装箱时，必须分配并构造一个全新的对象。其次，拆箱所需的强制转换也需要进行大量的计算。
+            arrayAnimal = new ArrayList();
+            arrayAnimal.Add(new Cat("小花"));
+            arrayAnimal.Add(new Dog("阿毛"));
+            arrayAnimal.Add(new Cattle("小黑"));
+            arrayAnimal.Add(new Sheep("娇娇"));
+            arrayAnimal.Add(new Cat("咪咪"));
+
+            MessageBox.Show(arrayAnimal.Count.ToString());
+
+            arrayAnimal.RemoveAt(1);
+            arrayAnimal.RemoveAt(1);
+            MessageBox.Show(arrayAnimal.Count.ToString());
         }
         
         // 叫声比赛 的按钮事件
